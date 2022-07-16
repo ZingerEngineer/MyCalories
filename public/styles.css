@@ -1,0 +1,15 @@
+.html{
+    height: 100%;
+}
+.body {
+  margin: 0px;
+  height: 100%;
+}
+.container {
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(19, 19, 19),
+    rgb(49, 49, 49)
+  );
+  color: #fff;
+}
