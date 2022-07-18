@@ -8,6 +8,6 @@ const productSchema = new Schema({
   kCaloryPerGm: {
     type: Number,
   },
-});
+},{ versionKey: false });
 const product = mongoose.model("Product", productSchema);
 module.exports = product;

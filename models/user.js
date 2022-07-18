@@ -19,7 +19,7 @@ const userSchema = new Schema({
   password: {
     type: String,
   },
-});
+}, { versionKey: false });
 
 const user = mongoose.model("User", userSchema);
 module.exports = user;
