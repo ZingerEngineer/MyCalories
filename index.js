@@ -6,8 +6,8 @@ mongoose.connect("mongodb://localhost/calories-db");
 mongoose.Promise = global.Promise;
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use("/api", require("./routes/product.route.api"));
-app.use("/api", require("./routes/user.route.api"));
+app.use("/api/product", require("./routes/product.route.api"));
+app.use("/api/user", require("./routes/user.route.api"));
 app.use(function (err, req, res, next) {
   res.status(422).send({ error: err.message });
 });

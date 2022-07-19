@@ -1,30 +1,87 @@
 html {
-    width: 100%;
-    height: 100%;
-  
-  }
-  body {
-    width: 100%;
-    height: 100%;
-    font-family: 'Josefin Sans', sans-serif;
-    margin: 0px;
-    background-image: linear-gradient( to bottom right, rgb(19, 19, 19), rgb(49, 49, 49) );
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  p{
-    margin: 0px;
-  }
-  .container {
-    width: fit-content;
-    font-size: 50px;
-    margin: auto;
-    color: #fff;
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-  }
+  width: 100%;
+  height: 100%;
+}
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Josefin Sans", sans-serif;
+  margin: 0px;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(19, 19, 19),
+    rgb(49, 49, 49)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+p {
+  margin: 0px;
+  font-size: 25px;
+}
+.container {
+  width: fit-content;
+  font-size: 50px;
+  margin: auto;
+  color: #fff;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.return-button, .add-button {
+  background-color: #686868;
+  color: #fff;
+  width: 100px;
+  height: 40px;
+  border-radius: 50px;
+  border-width: 0px;
+  cursor: pointer;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 15px;
+}
+.inputs {
+  display: flex;
+  margin: 40px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.label {
+  font-size: 15px;
+  position: relative;
+  margin: 2px;
+}
+.name-input,
+.calory-input {
+  position: absolute;
+  height: 35px;
+  border-radius: 50px;
+  border-width: 0;
+  animation-duration: 0.4s;
+  padding: 0;
+  padding-left: 1%;
+  font-family: "Josefin Sans", sans-serif;
+  width: 160px;
+}
+.product-name,
+.product-calories {
+  height: 60px;
+  width: 170px;
+}
+
+input.name-input:focus {
+  outline: none;
+}
+input.calory-input:focus {
+  outline: none;
+}
+::-webkit-input-placeholder {
+  color: #c4c4c4;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

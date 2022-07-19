@@ -11,19 +11,25 @@
       href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>Create new product</title>
   </head>
   <body>
     <div class="container">
       <p>Create a new product:</p>
       <div class="inputs">
-        <p>Name:</p>
-        <input type="text">
-        <p>Kcalrory per gram:</p>
-        <input type="number">
+        <div class="product-name">
+        <p class="label">Name:</p>
+        <input class="name-input" type="text">
       </div>
+      <div class="product-calories">
+        <p class="label">Kcalrory per gram:</p>
+        <input class = "calory-input"type="number">
+      </div>
+      </div>
+      <button class="return-button">Go back</button>
+      <button class="add-button">Add</button>
     </div>
-
     <script
       crossorigin
       src="https://unpkg.com/react@18/umd/react.development.js"
@@ -32,5 +38,8 @@
       crossorigin
       src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
     ></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../scripts/new-product.js"></script>
   </body>
 </html>
