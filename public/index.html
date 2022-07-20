@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,16 +13,29 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://kit.fontawesome.com/35a9c33b8a.js" crossorigin="anonymous"></script>
     <title>My Calories</title>
   </head>
   <body>
     <div class="container">
-      <p>Under Construction...</p>
+      <div class="product-list">
+        <div class="product">
+          <div class="product-info">
+          <p class="product-name">Oranges</p>
+          <p class="product-Kcalgm">1.55</p>
+        </div>
+        <div class="product-buttons">
+          <button class="edit-button"><i class="fa-solid fa-square-pen"></i></button>
+          <button class="delete-button"><i class="fa-solid fa-square-xmark"></i></button>
+        </div>
+        </div>
+      </div>
       <div class="buttons">
         <button class="btn-1">Add product</button>
         <button class="btn-2">Calculate calories</button>
       </div>
     </div>
+
     <script
       crossorigin
       src="https://unpkg.com/react@18/umd/react.development.js"
