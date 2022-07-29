@@ -1,19 +1,27 @@
 const productList = document.querySelector(".product-list");
 const createButton = document.querySelector(".btn-1");
 
-const nameInputEditCreate = () => {
+const nameInputEditCreate = (nameInputEditId,value) => {
   const inputNameEdit = document.createElement("INPUT");
   inputNameEdit.classList.add("input-name-edit");
   inputNameEdit.setAttribute("type", "text");
   inputNameEdit.setAttribute("class", "input-name-edit");
+  inputNameEdit.setAttribute("id", `${nameInputEditId}-name-input-edit`);
+  inputNameEdit.setAttribute("value", value);
+
+
   return inputNameEdit;
 };
 
-const calsInputEditCreate = () => {
+const calsInputEditCreate = (calsInputEditId,value) => {
   const inputCalsEdit = document.createElement("INPUT");
   inputCalsEdit.classList.add("input-cals-edit");
   inputCalsEdit.setAttribute("type", "number");
   inputCalsEdit.setAttribute("class", "input-cals-edit");
+  inputCalsEdit.setAttribute("id", `${calsInputEditId}-cals-input-edit`);
+  inputCalsEdit.setAttribute("value", value);
+
+
   return inputCalsEdit;
 };
 
@@ -21,7 +29,7 @@ const confirmButtonCreate = (confirmButtonId) => {
   const confirmIcon = document.createElement("I");
   confirmIcon.classList.add("fa-solid", "fa-square-check");
   const confirmButton = document.createElement("BUTTON");
-  confirmButton.setAttribute("id",`${confirmButtonId}-confirm-button`)
+  confirmButton.setAttribute("id", `${confirmButtonId}-confirm-button`);
   confirmButton.classList.add("confirm-button");
   confirmButton.appendChild(confirmIcon);
   return confirmButton;
@@ -37,7 +45,7 @@ const deleteButtonCreate = (objName, objId, deleteButtonId) => {
   deleteIcon.classList.add("fa-solid", "fa-square-xmark");
   const deleteButton = document.createElement("BUTTON");
   deleteButton.classList.add("delete-button");
-  deleteButton.setAttribute("id",`${deleteButtonId}-delete-button`)
+  deleteButton.setAttribute("id", `${deleteButtonId}-delete-button`);
   deleteButton.appendChild(deleteIcon);
   deleteButton.addEventListener("click", async () => {
     try {
@@ -78,33 +86,37 @@ const editButtonCreate = (editButtonId) => {
   editIcon.classList.add("fa-solid", "fa-square-pen");
   const editButton = document.createElement("BUTTON");
   editButton.classList.add("edit-button");
-  editButton.setAttribute("id",`${editButtonId}-edit-button`)
+  editButton.setAttribute("id", `${editButtonId}-edit-button`);
   editButton.appendChild(editIcon);
   return editButton;
 };
 
-const productButtonsCreate = (deleteButton, editButton) => {
+const productButtonsCreate = (deleteButton, editButton, productButtonsId) => {
   const productButtons = document.createElement("DIV");
   productButtons.classList.add("product-buttons");
+  productButtons.setAttribute("id", `${productButtonsId}-product-buttons`);
   productButtons.appendChild(deleteButton);
   productButtons.appendChild(editButton);
   return productButtons;
 };
-const productNameCreate = (name) => {
+const productNameCreate = (name, productNameId) => {
   const productName = document.createElement("P");
   productName.classList.add("product-name");
+  productName.setAttribute("id", `${productNameId}-product-name`);
   productName.innerText = name;
   return productName;
 };
-const productCalsCreate = (cals) => {
+const productCalsCreate = (cals, productCalsId) => {
   const productCals = document.createElement("P");
   productCals.classList.add("product-Kcalgm");
+  productCals.setAttribute("id", `${productCalsId}-product-cals`);
   productCals.innerText = cals;
   return productCals;
 };
-const productInfoCreate = (productName, productCals) => {
+const productInfoCreate = (productName, productCals, productInfoId) => {
   const productInfo = document.createElement("DIV");
   productInfo.classList.add("product-info");
+  productInfo.setAttribute("id", `${productInfoId}-product-info`);
   productInfo.appendChild(productName);
   productInfo.appendChild(productCals);
   return productInfo;
@@ -126,96 +138,112 @@ window.addEventListener("load", async function renderer() {
     const objId = obj._id;
     const objName = obj.name;
     const objCals = obj.kCaloryPerGm;
-    const deleteButtonId = objId
-    const editButtonId = objId
-    const confirmButtonId = objId
-    const productNameElement = productNameCreate(objName);
-    const productCalsElement = productCalsCreate(objCals);
+    const deleteButtonId = objId;
+    const editButtonId = objId;
+    const productCalsId = objId;
+    const productNameId = objId;
+    const productInfoId = objId;
+    const productButtonsId = objId;
+    let productNameElement = productNameCreate(objName, productNameId);
+    let productCalsElement = productCalsCreate(objCals, productCalsId);
     const productInfoElement = productInfoCreate(
       productNameElement,
-      productCalsElement
+      productCalsElement,
+      productInfoId
     );
 
     const editButtonElement = editButtonCreate(editButtonId);
-    const deleteButtonElement = deleteButtonCreate(objName, objId,deleteButtonId);
+    const deleteButtonElement = deleteButtonCreate(
+      objName,
+      objId,
+      deleteButtonId
+    );
     const productButtonsElement = productButtonsCreate(
       editButtonElement,
-      deleteButtonElement
+      deleteButtonElement,
+      productButtonsId
     );
-    editButtonElement.addEventListener(
-      "click",
-      (editFunction = () => {
-        const toBeDeletedEditButton = document.getElementById(`${objId}-edit-button`)
-        toBeDeletedEditButton.remove();
-        productNameElement.remove();
-        productCalsElement.remove();
-        const inputNameEditElement = nameInputEditCreate();
-        const inputCalsEditElement = calsInputEditCreate();
-        productInfoElement.appendChild(inputNameEditElement);
-        productInfoElement.appendChild(inputCalsEditElement);
-        const confirmButtonElement = confirmButtonCreate(confirmButtonId);
-        confirmButtonElement.addEventListener("click", async () => {
-          try {
-            let editedProduct = {};
-            editedProduct = {
-              name: inputNameEditElement.value,
-              kCaloryPerGm: inputCalsEditElement.value,
-            };
-            await axios.put(`/api/product/${objId}`, editedProduct, {
-              new: true,
-            });
-            Toastify({
-              text: "Product edited",
-              duration: 3000,
-              close: true,
-              gravity: "top", // `top` or `bottom`
-              position: "right", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              style: {
-                background: "linear-gradient(315deg, #7ee8fa 0%, #80ff72 74%)",
-              },
-            }).showToast();
-            let name = editedProduct.name;
-            let cals = editedProduct.kCaloryPerGm;
-            const productNameElement = productNameCreate(name);
-            const productCalsElement = productCalsCreate(cals);
-            inputNameEditElement.remove();
-            inputCalsEditElement.remove();
-            productInfoElement.appendChild(productNameElement);
-            productInfoElement.appendChild(productCalsElement);
-            const toBeDeletedConfirmButton = document.getElementById(`${objId}-confirm-button`)
-            toBeDeletedConfirmButton.remove();
-            const editButtonElement = editButtonCreate(editButtonId);
-            productButtonsElement.appendChild(editButtonElement)
-            console.log(objId)
-            const editButtonToBeAdded = document.getElementById(`${objId}-edit-button`)
-            console.log(editButtonToBeAdded)
-            console.log("before")
-            editButtonToBeAdded.addEventListener("click", editFunction);
-            console.log("after")
 
-            productButtonsElement.insertBefore(
-              editButtonElement,
-              deleteButtonElement
-            );
-          } catch (error) {
-            console.log(error);
-            Toastify({
-              text: "Error happened",
-              duration: 3000,
-              close: true,
-              gravity: "top", // `top` or `bottom`
-              position: "right", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              style: {
-                background: "linear-gradient(to right, red, red)",
-              },
-            }).showToast();
-          }
-        });
-        productButtonsElement.appendChild(confirmButtonElement);
-      })
-    );
+    const editFunction = (productElement) => {
+      let productName = document.getElementById(`${productNameId}-product-name`)
+      let productCals = document.getElementById(`${productCalsId}-product-cals`)
+      const inputNameEditElement = nameInputEditCreate(productElement.id,productName.innerText);
+      const inputCalsEditElement = calsInputEditCreate(productElement.id,productCals.innerText);
+      let toBeDeletedEditButton = document.getElementById(
+        `${productElement.id}-edit-button`
+      );
+      toBeDeletedEditButton.remove();
+      let tobeDeletedProductName = document.getElementById(`${productElement.id}-product-name`)
+      let tobeDeletedProductCals = document.getElementById(`${productElement.id}-product-cals`)
+      tobeDeletedProductName.remove();
+      tobeDeletedProductCals.remove();
+
+      productInfoElement.appendChild(inputNameEditElement);
+      productInfoElement.appendChild(inputCalsEditElement);
+      const confirmButtonElement = confirmButtonCreate(productElement.id);
+      confirmButtonElement.addEventListener("click", async () => {
+        try {
+          let editedProduct = {};
+          editedProduct = {
+            name: inputNameEditElement.value,
+            kCaloryPerGm: inputCalsEditElement.value,
+          };
+          await axios.put(`/api/product/${objId}`, editedProduct, {
+            new: true,
+          });
+          Toastify({
+            text: "Product edited",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(315deg, #7ee8fa 0%, #80ff72 74%)",
+            },
+          }).showToast();
+          let name = editedProduct.name;
+          let cals = editedProduct.kCaloryPerGm;
+          let productNameElement = productNameCreate(name, productElement.id);
+          let productCalsElement = productCalsCreate(cals, productElement.id);
+          const toBeDeletedInputNameEdit = document.getElementById(
+            `${productElement.id}-name-input-edit`
+          );
+          const toBeDeletedInputCalsEdit = document.getElementById(
+            `${productElement.id}-cals-input-edit`
+          );
+          toBeDeletedInputNameEdit.remove();
+          toBeDeletedInputCalsEdit.remove();
+          productInfoElement.appendChild(productNameElement);
+          productInfoElement.appendChild(productCalsElement);
+          const toBeDeletedConfirmButton = document.getElementById(
+            `${productElement.id}-confirm-button`
+          );
+          toBeDeletedConfirmButton.remove();
+          const editButtonElement = editButtonCreate(productElement.id);
+          editButtonElement.addEventListener("click", () => editFunction(productElement));
+          const productButtonsElement = document.getElementById(`${productElement.id}-product-buttons`)
+          productButtonsElement.insertBefore(
+            editButtonElement,
+            deleteButtonElement
+          );
+        } catch (error) {
+          console.log(error);
+          Toastify({
+            text: "Error happened",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, red, red)",
+            },
+          }).showToast();
+        }
+      });
+      productButtonsElement.appendChild(confirmButtonElement);
+    }
 
     let productElement = productCreate(
       objId,
@@ -223,6 +251,11 @@ window.addEventListener("load", async function renderer() {
       productButtonsElement
     );
     productList.appendChild(productElement);
+    editButtonElement.addEventListener(
+      "click",
+      () => editFunction(productElement)
+    );
+
   });
 });
 
