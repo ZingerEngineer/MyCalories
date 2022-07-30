@@ -199,9 +199,9 @@ window.addEventListener("load", async function renderer() {
       let inputNameEditElement = nameInputEditCreate(productElement.id,productName.innerText);
 
       let inputCalsEditElement = calsInputEditCreate(productElement.id,productCals.innerText);
-      inputCalsEditElement.addEventListener("keydown", function (character) {
-        if (invalidChars.includes(character.key)) {
-          character.preventDefault();
+      inputCalsEditElement.addEventListener("keydown", function (event) {
+        if (invalidChars.includes(event.key)) {
+          event.preventDefault();
         }
       });
       let toBeDeletedEditButton = document.getElementById(
