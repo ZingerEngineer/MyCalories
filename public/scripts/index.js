@@ -1,5 +1,34 @@
 const productList = document.querySelector(".product-list");
 const createButton = document.querySelector(".btn-1");
+const positiveNumberRegEx = new RegExp(
+  "^(?!(?:^[-+]?[0.]+(?:[]|$)))(?!(?:^-))(?:(?:[+-]?)(?=[0123456789.])(?:(?:(?:[0123456789]+)(?:(?:[.])(?:[0123456789]*))?|(?:(?:[.])(?:[0123456789]+))))(?:(?:[])(?:(?:[+-]?)(?:[0123456789]+))|))$"
+);
+const wordRegEx = new RegExp(
+  /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð' -]+$/u
+);
+let isPositive = false;
+let isProduct = false;
+let invalidChars = ["-", "+", "e"];
+const wordCheck = (inputNameEditElement) => {
+  if (
+    wordRegEx.test(inputNameEditElement.value) &&
+    /^\s/.test(inputNameEditElement.value) === false &&
+    inputNameEditElement.value != ""
+  ) {
+    isProduct = true;
+  } else {
+    isProduct = false;
+  }
+  console.log(isProduct)
+};
+const positiveCheck = (inputCalsEditElement) => {
+  if (positiveNumberRegEx.test(inputCalsEditElement.value)) {
+    isPositive = true;
+  } else {
+    isPositive = false;
+  }
+  console.log(isPositive)
+};
 
 const nameInputEditCreate = (nameInputEditId,value) => {
   const inputNameEdit = document.createElement("INPUT");
@@ -167,8 +196,14 @@ window.addEventListener("load", async function renderer() {
     const editFunction = (productElement) => {
       let productName = document.getElementById(`${productNameId}-product-name`)
       let productCals = document.getElementById(`${productCalsId}-product-cals`)
-      const inputNameEditElement = nameInputEditCreate(productElement.id,productName.innerText);
-      const inputCalsEditElement = calsInputEditCreate(productElement.id,productCals.innerText);
+      let inputNameEditElement = nameInputEditCreate(productElement.id,productName.innerText);
+
+      let inputCalsEditElement = calsInputEditCreate(productElement.id,productCals.innerText);
+      inputCalsEditElement.addEventListener("keydown", function (character) {
+        if (invalidChars.includes(character.key)) {
+          character.preventDefault();
+        }
+      });
       let toBeDeletedEditButton = document.getElementById(
         `${productElement.id}-edit-button`
       );
@@ -180,6 +215,13 @@ window.addEventListener("load", async function renderer() {
 
       productInfoElement.appendChild(inputNameEditElement);
       productInfoElement.appendChild(inputCalsEditElement);
+      let toBeAddedInputNameEdit = document.getElementById(`${productElement.id}-name-input-edit`)
+      toBeAddedInputNameEdit.addEventListener("input",()=>wordCheck(inputNameEditElement))
+
+      let toBeAddedInputCalsEdit = document.getElementById(`${productElement.id}-cals-input-edit`)
+      toBeAddedInputCalsEdit.addEventListener("input",()=> positiveCheck(inputCalsEditElement))
+
+
       const confirmButtonElement = confirmButtonCreate(productElement.id);
       confirmButtonElement.addEventListener("click", async () => {
         try {
