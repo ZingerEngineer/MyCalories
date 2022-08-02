@@ -62,6 +62,7 @@ p {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  z-index: 0;
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -84,51 +85,31 @@ p {
   margin-left: 40px;
   padding-top: 15px;
 }
-.delete-button {
+.card-button {
+  margin: 10px;
   display: flex;
-  background-color: rgba(1, 1, 1, 0);
-  border: none;
-  border-radius: 100%;
-  color: rgb(255 255 255);
-  font-size: 50px;
-  height: 40px;
-  width: 40px;
-  padding: 0px;
-  cursor: pointer;
   justify-content: center;
   align-items: center;
-  margin:10px;
+  background-color: rgb(255 255 255);
+  font-size: 20px;
+  height: 45px;
+  width: 45px;
+  padding: 0px;
+  cursor: pointer;
+  border: none;
+  border-radius: 20%;
+}
+.delete-button{
+  color: rgb(255, 51, 68);
 }
 .edit-button {
-  display: flex;
-  background-color: rgba(1, 1, 1, 0);
-  border: none;
-  border-radius: 100%;
-  color: rgb(255 255 255);
-  font-size: 50px;
-  height: 40px;
-  width: 40px;
-  padding: 0px;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  margin:10px;
+  color: rgb(255, 211, 65);
 }
 .confirm-button {
-  display: flex;
-  background-color: rgba(1, 1, 1, 0);
-  border: none;
-  border-radius: 100%;
-  color: rgb(255 255 255);
-  font-size: 50px;
-  height: 40px;
-  width: 40px;
-  padding: 0px;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  margin:10px;
-
+  color: rgb(60, 255, 102);
+}
+.cancel-button {
+  color: rgb(255, 51, 68);
 }
 .product-buttons {
   display: flex;
@@ -136,15 +117,19 @@ p {
   justify-content: space-around;
 }
 .delete-button:hover {
-  color: rgb(255, 50, 50);
+  background-color: rgb(255, 227, 227);
+  transition-duration: 500ms;
+}
+.cancel-button:hover {
+  background-color: rgb(255, 227, 227);
   transition-duration: 500ms;
 }
 .edit-button:hover {
-  color: rgb(255, 219, 15);
+  background-color: #fff9d4;
   transition-duration: 500ms;
 }
 .confirm-button:hover {
-  color: rgb(47, 255, 54);
+  background-color: rgb(219, 255, 221);
   transition-duration: 500ms;
 }
 .swal-button--confirm {
@@ -214,9 +199,10 @@ input:focus {
 .dimmer{
   width: 580px;
   height: 400px;
-  background-color: rgba(255, 12, 12, 0.5);
+  background-color: rgb(26 26 26 / 88%);
   border-radius: 10px;
   overflow: auto;
   overflow-x: hidden;
   position: absolute;
+  z-index: 1;
 }
