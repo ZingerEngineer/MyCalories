@@ -19,7 +19,6 @@ const wordCheck = (inputNameEditElement) => {
   } else {
     isProduct = false;
   }
-  console.log(isProduct);
 };
 const positiveCheck = (inputCalsEditElement) => {
   if (positiveNumberRegEx.test(inputCalsEditElement.value)) {
@@ -27,7 +26,6 @@ const positiveCheck = (inputCalsEditElement) => {
   } else {
     isPositive = false;
   }
-  console.log(isPositive);
 };
 const dimmerCreate = () => {
   const dimmer = document.createElement("DIV");

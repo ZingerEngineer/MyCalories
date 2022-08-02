@@ -10,9 +10,6 @@ const userSchema = new Schema({
     type: String,
     require: [true, "Last name is required"],
   },
-  age: {
-    type: Number,
-  },
   email: {
     type: String,
   },

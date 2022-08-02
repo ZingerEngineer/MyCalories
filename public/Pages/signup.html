@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mukta&family=Rubik:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/signup.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Sign Up</title>
+  </head>
+
+  <body>
+    <div class="left-side"> 
+      <div class="left-content">
+        <div class="first-name-block">
+          <h1 class="input-name">First name</h1>
+          <input placeholder="" class="input" id="first-name" type="text" />
+        </div>
+        <div class="last-name-block">
+          <h1 class="input-name">Last name</h1>
+          <input placeholder="" class="input" id="last-name" type="text" />
+        </div>
+        <div class="second-block">
+          <div class="input-slot-email">
+            <h1 class="input-name-email">Email address</h1>
+            <input placeholder="" class="input-email" />
+          </div>
+        </div>
+        <div class="third-block">
+          <div class="input-slot-password">
+            <h1 class="input-name-password">Password</h1>
+            <div class="wrapper d-flex position-relative">
+              <input placeholder="" class="input-password" type="password" />
+              <button class="visibility">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="password-check">
+            <div class="columne-1">
+              <div id="eight-characters" class="password-spec 1">
+                <i class="fas fa-circle"></i>
+                <h1 class="spec-name">At least 8 characters.</h1>
+              </div>
+              <div id="special-character" class="password-spec 2">
+                <i class="fas fa-circle"></i>
+                <h1 class="spec-name">At least 1 special character.</h1>
+              </div>
+              <div id="upper-case" class="password-spec 3">
+                <i class="fas fa-circle"></i>
+                <h1 class="spec-name">At least 1 uppercase letter.</h1>
+              </div>
+            </div>
+            <div class="columne-2">
+              <div id="lower-case" class="password-spec 4">
+                <i class="fas fa-circle"></i>
+                <h1 class="spec-name">At least 1 lowercase letter.</h1>
+              </div>
+              <div id="digits" class="password-spec 5">
+                <i class="fas fa-circle"></i>
+                <h1 class="spec-name">At least 1 digit.</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fourth-block">
+          <div class="input-slot-confirm">
+            <h1 class="input-name-confirm">Confirm password:</h1>
+            <input placeholder="" class="input-confirm" type="password" />
+          </div>
+        </div>
+        <button class="sign-up-button" disabled>
+          <i class="fas fa-user-plus"></i>
+          Sign up
+        </button>
+        <a class="have-account" href="login.html">Already have an account ?</a>
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="right-content">
+        <div class="new-user">
+          <h1 class="headerOnRight">Keep your diet on track.</h1>
+          <h1 class="under-header">
+            Improve your health & be fit with us.
+          </h1>
+    </div>
+  </body>
+  <script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.development.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="../scripts/signup.js"></script>
+</html>
