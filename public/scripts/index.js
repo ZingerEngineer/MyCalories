@@ -1,5 +1,6 @@
 const productList = document.querySelector(".product-list");
-const createButton = document.querySelector(".btn-1");
+const createButton = document.querySelector(".add-button");
+const calculateButton = document.querySelector(".calculate-button")
 const positiveNumberRegEx = new RegExp(
   "^(?!(?:^[-+]?[0.]+(?:[]|$)))(?!(?:^-))(?:(?:[+-]?)(?=[0123456789.])(?:(?:(?:[0123456789]+)(?:(?:[.])(?:[0123456789]*))?|(?:(?:[.])(?:[0123456789]+))))(?:(?:[])(?:(?:[+-]?)(?:[0123456789]+))|))$"
 );
@@ -9,6 +10,10 @@ const wordRegEx = new RegExp(
 let isPositive = false;
 let isProduct = false;
 let invalidChars = ["-", "+", "e"];
+calculateButton.addEventListener("click", ()=>{
+  window.location.replace("../pages/calculate-calories.html")
+})
+
 const wordCheck = (inputNameEditElement) => {
   if (
     wordRegEx.test(inputNameEditElement.value) &&

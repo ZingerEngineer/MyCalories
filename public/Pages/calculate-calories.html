@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="../Styles/edit-product.css" />
+    <link rel="stylesheet" type="text/css" href="../Styles/calculate-calories.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -12,12 +12,30 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <title>Edit product</title>
+    <title>Calories calculator</title>
   </head>
   <body>
-    <div class="container">
-
+    <div class="left-side">
+        <div class="left-content">
+            <div class="container">
+                <div class="product">
+                    <p class="product-name">Name</p>
+                    <p class="product-Kcalgm">1.455</p>
+                    <label class="wrapper">
+                        <input type="checkbox" >
+                        <span class="checkmark"></span>
+                      </label>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="right-side">
+        <div class="right-content">
+            <p class="total-calories-text">Total calories</p>
+            <p class="total-calories-calculation">2000 kCalories</p>
+        </div>
+    </div>
+    
     <script
       crossorigin
       src="https://unpkg.com/react@18/umd/react.development.js"
@@ -28,6 +46,6 @@
     ></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../scripts/edit-product.js"></script>
-  </body>
+    <script src="../scripts/calculate-calories.js"></script>
+</body>
 </html>

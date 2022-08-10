@@ -30,8 +30,7 @@ p {
   align-items: center;
   align-content: center;
 }
-.btn-1,
-.btn-2 {
+.page-button {
   background-color: #686868;
   color: #fff;
   width: 165px;
