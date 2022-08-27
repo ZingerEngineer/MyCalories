@@ -94,3 +94,24 @@ display: flex;
     height: 526px;
   }
 }
+.card-button {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255 255 255);
+  font-size: 20px;
+  height: 45px;
+  width: 45px;
+  padding: 0px;
+  cursor: pointer;
+  border: none;
+  border-radius: 20%;
+}
+.delete-button{
+  color: rgb(255, 51, 68);
+}
+.delete-button:hover {
+  background-color: rgb(255, 227, 227);
+  transition-duration: 500ms;
+}
