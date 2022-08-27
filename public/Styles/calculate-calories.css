@@ -16,7 +16,7 @@ p {
 }
 .container {
   font-size: 50px;
-  margin: auto;
+  margin-top: 70px;
   color: #fff;
   display: flex;
   flex-direction: row;
