@@ -1,23 +1,22 @@
 const submitButton = document.querySelector(".submit-button");
-const productSelectBox = document.querySelector("#products-box");
 const container = document.querySelector(".container");
-const productsWrapper = document.querySelector(".products-wrapper");
+const rowsWrapper = document.querySelector(".rows-wrapper");
 const totalCalories = document.querySelector(".total-calories");
 let isEmpty = null;
-let productsInfoList = [];
-productsInfoList
-let productCreationInfo = { select: null, grams: 0,calories:0};
-const arraySum = (array) =>{
+let productsDataList = [];
+let productInfoObject = { select: null, grams: 0,calories:0};
+const sumOfArray = (array) =>{
   let sum = 0
   for(i=0;i<array.length;i++){
     sum = array[i].calories + sum
   }
   return sum;
 }
-const deleteProduct = (id,array,productWrapper)=>{
-  array = array.splice(id,id+1)
-productWrapper.innerHTML = ""
-renderer()
+const deleteRow = (array,index,wrapper)=>{
+  array.splice(index,1)
+totalCalories.innerText = sumOfArray(array)
+wrapper.innerHTML = ""
+render()
 }
 const deleteButtonCreate = (index) => {
   const deleteIcon = document.createElement("I");
@@ -25,113 +24,115 @@ const deleteButtonCreate = (index) => {
   const deleteButton = document.createElement("BUTTON");
   deleteButton.classList.add("delete-button");
   deleteButton.classList.add("card-button");
-  deleteButton.setAttribute("id", `${index}-delete-button`);
+  deleteButton.setAttribute("id", `delete-button-${index}`);
   deleteButton.appendChild(deleteIcon);
   return deleteButton;
 };
 
-const selectBoxCreate = () => {
-  const selectBox = document.createElement("select");
-  selectBox.setAttribute("name", "products-box");
-  selectBox.setAttribute("id", "products-box");
-  return selectBox;
+const rowSelectBoxCreate = (index) => {
+  const rowSelectBox = document.createElement("select");
+  rowSelectBox.setAttribute("name", "products-box");
+  rowSelectBox.setAttribute("class", "row-select-box");
+  rowSelectBox.setAttribute("id", `row-select-box-${index}`);
+  return rowSelectBox;
 };
 const optionsCreate = (
-  productNameValue,
-  productCalsValue,
-  productIdValue,
-  productSelectBox
+  productName,
+  productKiloCaloryPerGram,
+  productId,
+  rowSelectBox
 ) => {
   const option = document.createElement("option");
-  option.setAttribute("value", productCalsValue);
-  option.setAttribute("id", productIdValue);
-  option.innerHTML = productNameValue;
-  productSelectBox.appendChild(option);
+  option.setAttribute("value", productKiloCaloryPerGram);
+  option.setAttribute("id", productId);
+  option.innerHTML = productName;
+  rowSelectBox.appendChild(option);
 };
-const inputGramsCreate = () => {
-  const inputGrams = document.createElement("input");
-  inputGrams.classList.add("input-grams");
-  inputGrams.setAttribute("type", "number");
-  return inputGrams;
+const rowGramsInputCreate = (index) => {
+  const gramsInput = document.createElement("input");
+  gramsInput.classList.add("grams-input");
+  gramsInput.setAttribute("type", "number");
+  gramsInput.setAttribute("id", `grams-input-${index}`);
+  return gramsInput;
 };
-const singleProductCaloriesCreate = () => {
-  const singleProductCalories = document.createElement("label");
-  singleProductCalories.classList.add("calories");
-  singleProductCalories.innerText = "Select a product.";
-  return singleProductCalories;
+const singleRowCaloriesCreate = (index) => {
+  const singleRowCalories = document.createElement("label");
+  singleRowCalories.classList.add("calories");
+  singleRowCalories.setAttribute("id", `row-calories-${index}`);
+  return singleRowCalories;
 };
-const productInputWrapperCreate = (selectBox, inputGrams, calories, deleteButton) => {
-  const productInfo = document.createElement("DIV");
-  productInfo.classList.add("product-info");
-  //product.setAttribute("id",`product-info-${id}`)
-  productInfo.appendChild(selectBox);
-  productInfo.appendChild(inputGrams);
-  productInfo.appendChild(calories);
-  return productInfo;
+const rowInfoWrapperCreate = (selectBox, gramsInput, calories,index) => {
+  const rowInfoWrapper = document.createElement("DIV");
+  rowInfoWrapper.classList.add("product-info");
+  rowInfoWrapper.setAttribute("id",`row-info-wrapper-${index}`)
+  rowInfoWrapper.appendChild(selectBox);
+  rowInfoWrapper.appendChild(gramsInput);
+  rowInfoWrapper.appendChild(calories);
+  return rowInfoWrapper;
 };
 
-const productCreate = (productInputWrapper, deleteButton) => {
-  const product = document.createElement("DIV");
-  product.appendChild(productInputWrapper);
-  product.appendChild(deleteButton);
-  product.classList.add("product");
-  //product.setAttribute("id",`product-${id}`)
-  return product;
+const productRowCreate = (wrapper, deleteButton,index) => {
+  const productRow = document.createElement("DIV");
+  productRow.appendChild(wrapper);
+  productRow.appendChild(deleteButton);
+  productRow.classList.add("product-row");
+  productRow.setAttribute("id",`product-row-${index}`)
+  return productRow;
 };
-const renderer = () => {
-  productsWrapper.innerHTML = "";
-  productsInfoList.forEach((dataObject, index) => {
-    const productSelectBoxElement = selectBoxCreate();
-    optionsCreate("Select product", null, "select", productSelectBoxElement);
+const render = () => {
+  rowsWrapper.innerHTML = "";
+  productsDataList.forEach((productDataObject, index) => {
+    const rowSelectBoxElement = rowSelectBoxCreate(index);
+    optionsCreate("Select product", null, "select", rowSelectBoxElement);
     products.forEach((obj) => {
       const objId = obj._id;
       const objName = obj.name;
       const objCals = obj.kCaloryPerGm;
-      options = optionsCreate(objName, objCals, objId, productSelectBoxElement);
+      options = optionsCreate(objName, objCals, objId, rowSelectBoxElement);
     });
-    productSelectBoxElement.value = dataObject.select;
-    const inputGramsElement = inputGramsCreate(index);
-    inputGramsElement.value = dataObject.grams;
-    const singleProductCaloriesElement = singleProductCaloriesCreate();
-    singleProductCaloriesElement.innerText = dataObject.calories
-    inputGramsElement.addEventListener("input", (e) => {
-      productsInfoList[index].grams = inputGramsElement.value;
-      if (!productSelectBoxElement.value) {
-        singleProductCaloriesElement.innerHTML = "Select a product.";
+    rowSelectBoxElement.value = productDataObject.select;
+    const gramsInputElement = rowGramsInputCreate(index);
+    gramsInputElement.value = productDataObject.grams;
+    const singleRowCaloriesElement = singleRowCaloriesCreate(index);
+    singleRowCaloriesElement.innerText = productDataObject.calories
+    gramsInputElement.addEventListener("input", () => {
+      productsDataList[index].grams = gramsInputElement.value;
+      if (!rowSelectBoxElement.value) {
+        singleRowCaloriesElement.innerHTML = "Select a product.";
       } else {
-          dataObject.calories = (dataObject.select * dataObject.grams) || 0;
-          totalCalories.innerText = arraySum(productsInfoList)
+        productDataObject.calories = parseInt((productDataObject.select * productDataObject.grams).toFixed(3)) || 0;
+          totalCalories.innerText = sumOfArray(productsDataList)
       }
-      renderer();
+      render();
     });
-    productSelectBoxElement.addEventListener("change", (event) => {
-      productsInfoList[index].select = productSelectBoxElement.value;
-      if (!productSelectBoxElement.value) {
-        singleProductCaloriesElement.innerHTML = "Select a product.";
+    rowSelectBoxElement.addEventListener("change", (event) => {
+      productsDataList[index].select = rowSelectBoxElement.value;
+      if (!rowSelectBoxElement.value) {
+        singleRowCaloriesElement.innerHTML = "Select a product.";
       } else {
-        dataObject.calories = (dataObject.select * dataObject.grams) || 0;
-        totalCalories.innerText = arraySum(productsInfoList)
+        productDataObject.calories = parseInt((productDataObject.select * productDataObject.grams).toFixed(3)) || 0;
+        totalCalories.innerText = sumOfArray(productsDataList)
       }
-      renderer();
+      render();
     });
 
-    let productInputWrapperElement = productInputWrapperCreate(
-      productSelectBoxElement,
-      inputGramsElement,
-      singleProductCaloriesElement,
+    let rowInfoWrapperElement = rowInfoWrapperCreate(
+      rowSelectBoxElement,
+      gramsInputElement,
+      singleRowCaloriesElement,
+      index
       
     );
     const deleteButtonElement = deleteButtonCreate(index)
-    deleteButtonElement.addEventListener("click",()=> deleteProduct(index,productsInfoList,productInputWrapperElement))
+    deleteButtonElement.addEventListener("click",()=> deleteRow(productsDataList,index,rowsWrapper))
   
-    let productElement = productCreate(productInputWrapperElement,deleteButtonElement);
-    productsWrapper.appendChild(productElement);
+    let productRowElement = productRowCreate(rowInfoWrapperElement,deleteButtonElement,index);
+    rowsWrapper.appendChild(productRowElement);
   });
 };
 window.addEventListener("load", async function () {
   const res = await axios.get("/api/product");
   products = res.data;
-  console.log(products);
   if (products.length === 0) {
     isEmpty = true;
   } else {
@@ -139,13 +140,13 @@ window.addEventListener("load", async function () {
   }
 });
 submitButton.addEventListener("click", () => {
-  if (productsInfoList.length != 0) {
-    productsInfoList.push({...productCreationInfo});
-    let toBeEmptied = document.querySelector(".products-wrapper");
-    toBeEmptied.innerHTML = "";
-    renderer();
+  if (productsDataList.length != 0) {
+    productsDataList.push({...productInfoObject});
+    rowsWrapper.innerHTML = "";
+    render();
   } else {
-    productsInfoList.push({...productCreationInfo});
-    renderer();
+    productsDataList.push({...productInfoObject});
+    console.log(productsDataList)
+    render();
   }
 });

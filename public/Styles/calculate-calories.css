@@ -19,11 +19,11 @@ p {
   margin-top: 70px;
   color: #fff;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
 }
-#products-box,.input-grams{
+.row-select-box,.grams-input{
   width: 150px;
   height: 30px;
   margin: 10px;
@@ -36,7 +36,7 @@ p {
   border-style: solid;
   border-width: 1px;
 }
-.input-grams{
+.grams-input{
   width: 148px;
   height: 28px;
 }
@@ -55,7 +55,7 @@ p {
     align-items: center;
     margin: 10px;
 }
-.product {
+.product-row {
   margin: 10px;
   height: 75px;
   background-color: rgb(104 104 104);
@@ -114,4 +114,7 @@ display: flex;
 .delete-button:hover {
   background-color: rgb(255, 227, 227);
   transition-duration: 500ms;
+}
+.total-calories{
+  margin-top: 50px;
 }
