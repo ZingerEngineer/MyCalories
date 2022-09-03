@@ -1,16 +1,25 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/calories-db");
-mongoose.Promise = global.Promise;
+const { router } = require("./routes/router");
+const DB = require("./db/connect");
+
+const app = express();
+const PORT = 4000;
+
+// DB connection
+DB.connect();
+
+// Middlewares
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use("/api/product", require("./routes/product.route.api"));
-app.use("/api/user", require("./routes/user.route.api"));
 app.use(function (err, req, res, next) {
   res.status(422).send({ error: err.message });
 });
-app.listen(4000, function () {
-  console.log("listening..");
+
+// Initialize router
+app.use('/api', router);
+
+// Initialize server
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
 });
