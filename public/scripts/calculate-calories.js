@@ -2,9 +2,17 @@ const submitButton = document.querySelector(".submit-button");
 const container = document.querySelector(".container");
 const rowsWrapper = document.querySelector(".rows-wrapper");
 const totalCalories = document.querySelector(".total-calories");
+const positiveNumberRegEx = new RegExp(
+  "^(?!(?:^[-+]?[0.]+(?:[]|$)))(?!(?:^-))(?:(?:[+-]?)(?=[0123456789.])(?:(?:(?:[0123456789]+)(?:(?:[.])(?:[0123456789]*))?|(?:(?:[.])(?:[0123456789]+))))(?:(?:[])(?:(?:[+-]?)(?:[0123456789]+))|))$"
+);
+let invalidChars = ["-", "+", "e"];
 let isEmpty = null;
+let isReadyToCalculate = null
 let productsDataList = [];
 let productInfoObject = { select: null, grams: 0,calories:0};
+const rowInputsCheck = ()=>{
+
+}
 const sumOfArray = (array) =>{
   let sum = 0
   for(i=0;i<array.length;i++){
@@ -52,7 +60,13 @@ const rowGramsInputCreate = (index) => {
   const gramsInput = document.createElement("input");
   gramsInput.classList.add("grams-input");
   gramsInput.setAttribute("type", "number");
+  gramsInput.setAttribute("onpaste", "return false");
   gramsInput.setAttribute("id", `grams-input-${index}`);
+  gramsInput.addEventListener("keydown", function (character) {
+    if (invalidChars.includes(character.key)) {
+      character.preventDefault();
+    }
+  });
   return gramsInput;
 };
 const singleRowCaloriesCreate = (index) => {
@@ -105,7 +119,7 @@ const render = () => {
       }
       render();
     });
-    rowSelectBoxElement.addEventListener("change", (event) => {
+    rowSelectBoxElement.addEventListener("change", () => {
       productsDataList[index].select = rowSelectBoxElement.value;
       if (!rowSelectBoxElement.value) {
         singleRowCaloriesElement.innerHTML = "Select a product.";
@@ -138,6 +152,7 @@ window.addEventListener("load", async function () {
   } else {
     isEmpty = false;
   }
+  console.log(isEmpty)
 });
 submitButton.addEventListener("click", () => {
   if (productsDataList.length != 0) {
