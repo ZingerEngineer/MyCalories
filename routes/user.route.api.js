@@ -10,14 +10,6 @@ router.get("/", function (req, res, next) {
     .catch(next);
 });
 
-router.post("/", function (req, res, next) {
-  User.create(req.body)
-    .then(function (user) {
-      res.send(user);
-    })
-    .catch(next);
-});
-
 router.put("/:id", function (req, res, next) {
   User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true }).then(
     function (user) {

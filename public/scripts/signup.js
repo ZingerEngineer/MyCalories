@@ -205,7 +205,7 @@ const signUp = async () => {
         email: inputEmail,
         password: inputPassword,
       };
-      await axios.post("/api/user/", userData);
+      await axios.post("/api/public/auth/register", userData);
       Toastify({
         text: "User created",
         duration: 3000,
