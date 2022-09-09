@@ -205,7 +205,9 @@ const signUp = async () => {
         email: inputEmail,
         password: inputPassword,
       };
-      await axios.post("/api/public/auth/register", userData);
+      const res = await axios.post("/api/public/auth/register", userData);
+      const token = res.headers.authorization;
+      localStorage.setItem("token", token);
       Toastify({
         text: "User created",
         duration: 3000,
@@ -219,9 +221,12 @@ const signUp = async () => {
       }).showToast();
       window.location.replace("/");
     } catch (error) {
-      console.log(error);
+      const text =
+        error && error.response.data.error.code === 11000
+          ? "This email already exists"
+          : "Error happened";
       Toastify({
-        text: "Error happened",
+        text,
         duration: 3000,
         close: true,
         gravity: "top", // `top` or `bottom`
@@ -244,7 +249,6 @@ const signUp = async () => {
         background: "linear-gradient(to right, red, red)",
       },
     }).showToast();
-    console.log(user);
   }
 };
 

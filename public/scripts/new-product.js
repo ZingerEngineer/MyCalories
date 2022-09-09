@@ -1,3 +1,6 @@
+if (!localStorage.getItem("token")) {
+  window.location.replace("../pages/login.html");
+}
 const returnButton = document.querySelector(".return-button");
 const addButton = document.querySelector(".add-button");
 const positiveNumberRegEx = new RegExp(
@@ -53,7 +56,11 @@ addButton.addEventListener("click", async () => {
         name: inputName,
         kCaloryPerGm: inputCalory,
       };
-      await axios.post("/api/product/", data);
+      await axios.post("/api/product/", data, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       Toastify({
         text: "Product added",
         duration: 3000,
@@ -78,7 +85,7 @@ addButton.addEventListener("click", async () => {
         },
       }).showToast();
     }
-  }else{
+  } else {
     Toastify({
       text: "Invalid input",
       duration: 3000,

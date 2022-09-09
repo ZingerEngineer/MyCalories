@@ -5,11 +5,30 @@ const visibilityButton = document.querySelector(".visibility");
 const buttonIcon = document.getElementsByTagName("i")[1];
 let isVisible = false;
 let user = {};
-let signIn = () => {
-  let textPassword = (user["email"] = email.value);
+const signIn = async () => {
+  user["email"] = email.value;
   user["password"] = password.value;
-  console.log(user);
+  loginData = { ...user };
+  try {
+    const res = await axios.post("/api/public/auth/login", loginData);
+    const token = res.headers.authorization;
+    localStorage.setItem("token", token);
+    window.location.assign("/");
+  } catch (error) {
+    Toastify({
+      text: "Invalid input",
+      duration: 3000,
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "right", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "linear-gradient(to right, red, red)",
+      },
+    }).showToast();
+  }
 };
+
 signInButton.addEventListener("click", signIn);
 const visibility = () => {
   if (isVisible === false) {

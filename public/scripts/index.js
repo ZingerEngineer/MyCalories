@@ -1,6 +1,10 @@
+if (!localStorage.getItem("token")) {
+  window.location.replace("../pages/login.html");
+}
 const productList = document.querySelector(".product-list");
 const createButton = document.querySelector(".add-button");
 const calculateButton = document.querySelector(".calculate-button");
+const logOutButton = document.querySelector(".log-out-button");
 const positiveNumberRegEx = new RegExp(
   "^(?!(?:^[-+]?[0.]+(?:[]|$)))(?!(?:^-))(?:(?:[+-]?)(?=[0123456789.])(?:(?:(?:[0123456789]+)(?:(?:[.])(?:[0123456789]*))?|(?:(?:[.])(?:[0123456789]+))))(?:(?:[])(?:(?:[+-]?)(?:[0123456789]+))|))$"
 );
@@ -182,7 +186,11 @@ const productCreate = (objId, productInfo, productButtons) => {
 };
 
 window.addEventListener("load", async function renderer() {
-  const res = await axios.get("/api/product");
+  const res = await axios.get("/api/product", {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  });
   const productArray = res.data;
   productArray.forEach((obj) => {
     const objId = obj._id;
@@ -410,3 +418,7 @@ createButton.addEventListener("click", () => {
 let editButton = document.querySelector(".edit-button");
 
 let deleteButton = document.querySelector(".delete-button");
+logOutButton.addEventListener("click", () => {
+  localStorage.removeItem("token");
+  window.location.replace("../pages/login.html");
+});
