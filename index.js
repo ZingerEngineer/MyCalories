@@ -21,16 +21,16 @@ app.use((req, res, next) => {
 });
 
 // Custom middleware
-const authorizationMiddleware = (req, res, next) => {
-  const token = req.headers.authorization;
-  if (token === 'Token') {
-    next();
-  } else {
-    res.status(401).json({
-      zpi: 'unautorized'
-    })
-  }
-};
+// const authorizationMiddleware = (req, res, next) => {
+//   const token = req.headers.authorization;
+//   if (token === 'Token') {
+//     next();
+//   } else {
+//     res.status(401).json({
+//       zpi: 'unautorized'
+//     })
+//   }
+// };
 
 // Custom middleware
 const logging = (req, res, next) => {
@@ -42,7 +42,7 @@ const logging = (req, res, next) => {
 app.use('/api/public', publicRouter);
 
 // Private routes that require token
-app.use('/api', authorizationMiddleware, logging, privateRouter);
+app.use('/api', logging, privateRouter);
 
 // Initialize server
 app.listen(PORT, () => {
